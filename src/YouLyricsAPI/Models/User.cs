@@ -15,12 +15,12 @@ public class User
     {
         
     }
-    public User(string name, string email, string password, int level)
+    public User(string name, string email, string password)
     {
         Id = Guid.NewGuid();
         Name = name;
         Email = email;
         Password = password;
-        Level = level;
+        Level = 1;
     }
 }
