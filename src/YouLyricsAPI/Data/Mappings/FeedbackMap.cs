@@ -32,6 +32,7 @@ public class FeedbackMap : IEntityTypeConfiguration<Feedback>
         builder.HasOne(feedback => feedback.Author)
             .WithMany()
             .HasForeignKey(feedback => feedback.AuthorId)
-            .HasConstraintName("FK_Feedback_AuthorId");
+            .HasConstraintName("FK_Feedback_AuthorId")
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

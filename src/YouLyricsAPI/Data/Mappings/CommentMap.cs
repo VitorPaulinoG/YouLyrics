@@ -20,7 +20,8 @@ public class CommentMap : IEntityTypeConfiguration<Comment>
         builder.HasOne(comment => comment.Author)
             .WithMany()
             .HasForeignKey(comment => comment.AuthorId)
-            .HasConstraintName("FK_Comment_AuthorId");
+            .HasConstraintName("FK_Comment_AuthorId")
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(comment => comment.Text)
             .WithMany()
