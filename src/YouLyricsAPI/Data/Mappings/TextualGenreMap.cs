@@ -12,8 +12,7 @@ public class TextualGenreMap : IEntityTypeConfiguration<TextualGenre>
         
         builder.HasKey(textualGenre => textualGenre.Id);
         builder.Property(textualGenre => textualGenre.Id)
-            .ValueGeneratedOnAdd()
-            .HasDefaultValue(Guid.NewGuid());
+            .ValueGeneratedOnAdd();
 
         builder.Property(textualGenre => textualGenre.Name)
             .HasColumnType("NVARCHAR")
@@ -21,7 +20,7 @@ public class TextualGenreMap : IEntityTypeConfiguration<TextualGenre>
             .IsRequired();
         
         builder.Property(textualGenre => textualGenre.Description)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("TEXT")
             .HasDefaultValue(string.Empty);
     }
 }

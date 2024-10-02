@@ -12,8 +12,7 @@ public class ThemeMap : IEntityTypeConfiguration<Theme>
         
         builder.HasKey(theme => theme.Id);
         builder.Property(theme => theme.Id)
-            .ValueGeneratedOnAdd()
-            .HasDefaultValue(Guid.NewGuid());
+            .ValueGeneratedOnAdd();
 
         builder.Property(theme => theme.Name)
             .HasColumnType("NVARCHAR")
@@ -21,7 +20,7 @@ public class ThemeMap : IEntityTypeConfiguration<Theme>
             .IsRequired();
         
         builder.Property(theme => theme.Description)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("TEXT")
             .HasDefaultValue(string.Empty);
     }
 }

@@ -12,19 +12,23 @@ public class UserMap : IEntityTypeConfiguration<User>
         
         builder.HasKey(user => user.Id);
         builder.Property(user => user.Id)
-            .ValueGeneratedOnAdd()
-            .HasDefaultValue(Guid.NewGuid());
+            .ValueGeneratedOnAdd();
 
         builder.Property(user => user.Name)
             .HasColumnType("NVARCHAR")
             .HasMaxLength(100)
             .IsRequired();
+        
         builder.Property(user => user.Email)
             .HasColumnType("NVARCHAR")
+            .HasMaxLength(200)
             .IsRequired();
+        
         builder.Property(user => user.Password)
             .HasColumnType("NVARCHAR")
+            .HasMaxLength(32)
             .IsRequired();
+        
         builder.Property(user => user.Level)
             .HasColumnType("INT")
             .HasDefaultValue(1)

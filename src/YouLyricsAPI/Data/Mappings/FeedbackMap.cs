@@ -13,12 +13,11 @@ public class FeedbackMap : IEntityTypeConfiguration<Feedback>
         
         builder.HasKey(feedback => feedback.Id);
         builder.Property(feedback => feedback.Id)
-            .ValueGeneratedOnAdd()
-            .HasDefaultValue(Guid.NewGuid());
+            .ValueGeneratedOnAdd();
 
         var jsonOptions = new JsonSerializerOptions();
         builder.Property(feedback => feedback.Review)
-            .HasColumnType("NVARCHAR")
+            .HasColumnType("TEXT")
             .HasConversion(
                 review => JsonSerializer.Serialize(review, jsonOptions),
                 review => JsonSerializer.Deserialize<Dictionary<string, float>>(review, jsonOptions)

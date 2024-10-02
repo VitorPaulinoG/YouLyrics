@@ -12,8 +12,7 @@ public class CommentMap : IEntityTypeConfiguration<Comment>
         
         builder.HasKey(comment => comment.Id);
         builder.Property(comment => comment.Id)
-            .ValueGeneratedOnAdd()
-            .HasDefaultValue(Guid.NewGuid());
+            .ValueGeneratedOnAdd();
 
         builder.Property(comment => comment.Content)
             .HasColumnType("TEXT")

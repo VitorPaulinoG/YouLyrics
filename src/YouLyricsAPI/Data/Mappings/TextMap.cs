@@ -12,8 +12,7 @@ public class TextMap : IEntityTypeConfiguration<Text>
         
         builder.HasKey(text => text.Id);
         builder.Property(text => text.Id)
-            .ValueGeneratedOnAdd()
-            .HasDefaultValue(Guid.NewGuid());
+            .ValueGeneratedOnAdd();
 
         builder.Property(text => text.Title)
             .HasColumnType("NVARCHAR")
