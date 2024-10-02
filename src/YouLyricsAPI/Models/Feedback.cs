@@ -13,9 +13,9 @@ public class Feedback
     {
         
     }
-    public Feedback(Guid id, Dictionary<string, float> review, Guid authorId, User author, Guid textId, Text text)
+    public Feedback(Dictionary<string, float> review, Guid authorId, User author, Guid textId, Text text)
     {
-        Id = id;
+        Id = Guid.NewGuid();
         Review = review;
         AuthorId = authorId;
         Author = author;

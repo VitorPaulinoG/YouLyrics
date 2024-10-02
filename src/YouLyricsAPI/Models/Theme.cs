@@ -11,9 +11,9 @@ public class Theme
         
     }
     
-    public Theme(Guid id, string name, string description)
+    public Theme(string name, string description)
     {
-        Id = id;
+        Id = new Guid();
         Name = name;
         Description = description;
     }

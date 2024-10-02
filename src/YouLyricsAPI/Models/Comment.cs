@@ -14,9 +14,9 @@ public class Comment
         
     }
     
-    public Comment(Guid id, string content, Guid authorId, User author, Guid textId, Text text)
+    public Comment(string content, Guid authorId, User author, Guid textId, Text text)
     {
-        Id = id;
+        Id = Guid.NewGuid();
         Content = content;
         AuthorId = authorId;
         Author = author;

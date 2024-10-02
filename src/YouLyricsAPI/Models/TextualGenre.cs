@@ -11,9 +11,9 @@ public class TextualGenre
         
     }
     
-    public TextualGenre(Guid id, string name, string description)
+    public TextualGenre(string name, string description)
     {
-        Id = id;
+        Id = Guid.NewGuid();
         Name = name;
         Description = description;
     }
