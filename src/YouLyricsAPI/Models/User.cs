@@ -10,11 +10,7 @@ public class User
     
     public void LevelUp ()
         => Level++;
-
-    public User()
-    {
-        
-    }
+    
     public User(string name, string email, string password)
     {
         Id = Guid.NewGuid();
