@@ -28,7 +28,7 @@ public class TextMap : IEntityTypeConfiguration<Text>
             .HasConstraintName("FK_Text_UserId");
             
         builder.Property(text => text.CreatedAt)
-            .HasColumnType("DATETIME")
+            .HasColumnType("datetime2")
             .HasDefaultValue(DateTime.Now);
         
         builder.HasOne(text => text.TextualGenre)
