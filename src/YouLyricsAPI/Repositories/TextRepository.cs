@@ -57,6 +57,10 @@ public class TextRepository
     
     public async Task<Text> AddTextAsync(Text text)
     {
+        foreach (var theme in text.Themes)
+        {
+            _appDbContext.Entry(theme).State = EntityState.Unchanged;
+        }
         await _appDbContext.Texts.AddAsync(text);
         await _appDbContext.SaveChangesAsync();
         return text;
