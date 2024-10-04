@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 namespace YouLyricsAPI.Models;
 
 public class Text
@@ -6,9 +8,11 @@ public class Text
     public string Title { get; set; }
     public string Content { get; set; }
     public Guid UserId { get; set; }
+    [ValidateNever]
     public User User { get; set; }
     public DateTime CreatedAt { get; set; }
     public Guid TextualGenreId { get; set; }
+    [ValidateNever]
     public TextualGenre TextualGenre { get; set; }
     public List<Theme> Themes { get; set; }
 
