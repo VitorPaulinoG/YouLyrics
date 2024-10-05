@@ -25,21 +25,21 @@ public class TextController : ControllerBase
         return Ok(texts);
     }
 
-    [HttpGet("contains")]
+    [HttpGet("title")]
     public async Task<IActionResult> GetTextsContainingTitle([FromQuery(Name = "title")] string title)
     {
         var texts = await _textRepository.GetTextContainingTitleAsync(title);
         return Ok(texts);
     }
     
-    [HttpGet("contains")]
+    [HttpGet("content")]
     public async Task<IActionResult> GetTextsContainingContent([FromQuery(Name = "content")] string content)
     {
         var texts = await _textRepository.GetTextContainingContentAsync(content);
         return Ok(texts);
     }
 
-    [HttpGet("contains")]
+    [HttpGet]
     public async Task<IActionResult> GetTextsContainingExpression([FromQuery(Name = "expression")] string expression)
     {
         var texts = await _textRepository.GetTextContainingExpressionAsync(expression);
