@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 namespace YouLyricsAPI.Models;
 
 public class Comment
@@ -5,8 +7,10 @@ public class Comment
     public Guid Id { get; set; }
     public string Content { get; set; }
     public Guid AuthorId { get; set; }
+    [ValidateNever]
     public User Author { get; set; }
     public Guid TextId { get; set; }
+    [ValidateNever]
     public Text Text { get; set; }
 
     public Comment()

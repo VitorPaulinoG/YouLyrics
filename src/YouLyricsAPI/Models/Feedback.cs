@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 namespace YouLyricsAPI.Models;
 
 public class Feedback
@@ -5,8 +7,10 @@ public class Feedback
     public Guid Id { get; set; }
     public Dictionary<string, float> Review { get; set; }
     public Guid AuthorId { get; set; }
+    [ValidateNever]
     public User Author { get; set; }
     public Guid TextId { get; set; }
+    [ValidateNever]
     public Text Text { get; set; }
 
     public Feedback()
