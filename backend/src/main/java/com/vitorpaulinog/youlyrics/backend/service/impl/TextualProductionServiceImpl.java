@@ -13,22 +13,25 @@ import com.vitorpaulinog.youlyrics.backend.service.TextualProductionService;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class TextualProductionServiceImpl implements TextualProductionService{
+public class TextualProductionServiceImpl implements TextualProductionService {
     private final TextualProductionRepository textualProductionRepository;
-
 
     public TextualProductionServiceImpl(TextualProductionRepository textualProductionRepository) {
         this.textualProductionRepository = textualProductionRepository;
     }
-    
+
     @Override
     public List<TextualProduction> getAll() {
         return this.textualProductionRepository.findAll();
     }
 
     @Override
-    public Optional<TextualProduction> getById(UUID id) {
-        return this.textualProductionRepository.findById(id);
+    public TextualProduction getById(UUID id) throws EntityNotFoundException {
+        var result = this.textualProductionRepository.findById(id);
+        if (!result.isPresent())
+            throw new EntityNotFoundException("Textual Production not found!");
+
+        return result.get();
     }
 
     @Override
@@ -37,17 +40,13 @@ public class TextualProductionServiceImpl implements TextualProductionService{
     }
 
     @Override
-    public void update(UUID id, TextualProduction textualProduction) {
+    public void update(UUID id, TextualProduction textualProduction) throws EntityNotFoundException {
         var currentTextualProduction = getById(id);
-        
-        currentTextualProduction.ifPresentOrElse((t) -> {
-            t.setTitle(textualProduction.getTitle());
-            t.setText(textualProduction.getText());
 
-            this.textualProductionRepository.save(t);
-        }, () -> {
-            throw new EntityNotFoundException("Textual Production not found");
-        });
+        currentTextualProduction.setTitle(textualProduction.getTitle());
+        currentTextualProduction.setText(textualProduction.getText());
+
+        this.textualProductionRepository.save(currentTextualProduction);
     }
 
     @Override
