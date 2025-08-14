@@ -1,0 +1,29 @@
+
+services:
+  youlyrics-backend:
+    build:
+      context: backend
+    image: youlyrics-backend
+    ports:
+      - "${BACKEND_HOST_PORT}:8080"
+    env_file:
+      - .env
+    networks:
+      - youlyrics-net
+  youlyrics-db:
+    image: postgres:15.13
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${HOST_DB_PORT}:5432"
+    volumes:
+      - youlyrics-db-vol:/var/lib/postgresql/data
+
+    networks:
+      - youlyrics-net
+volumes:
+  youlyrics-db-vol:
+networks:
+  youlyrics-net:

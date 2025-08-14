@@ -23,6 +23,8 @@ import com.vitorpaulinog.youlyrics.backend.domain.TextualProduction;
 import com.vitorpaulinog.youlyrics.backend.service.TextualProductionService;
 import com.vitorpaulinog.youlyrics.backend.service.impl.TextualProductionServiceImpl;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @WebMvcTest(TextualProductionController.class)
 public class TextualProductionControllerTest {
     
@@ -54,8 +56,21 @@ public class TextualProductionControllerTest {
             .andExpect(jsonPath("$.text").value(textualProductionMock.getText()));
     }
 
-    // criar caso de exceção
-
+    @Test
+    void getById_should_returnNotFound_when_idNotExists() throws Exception {
+        // arrange
+        var textualProductionMock = TextualProduction.builder()
+            .id(UUID.fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454"))
+            .title("EXAMPLE 01")
+            .text("TEXT EXAMPLE")
+            .build();
+        
+        when(textualProductionService.getById(any())).thenThrow(EntityNotFoundException.class);
+        
+        // act && assert
+        mockMvc.perform(get("/api/v1/textual-production/f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454"))
+            .andExpect(status().isNotFound());
+    }
 
     @Test
     void getAll_should_returnOK() throws Exception {
@@ -121,6 +136,24 @@ public class TextualProductionControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(textualProduction)))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void update_should_returnNotFound_when_idNotExists() throws JsonProcessingException, Exception {
+        // arrange
+        var textualProduction = TextualProduction.builder()
+                .id(UUID.fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454"))
+                .title("FIRST EXAMPLE")
+                .text("TEXT EXAMPLE")
+                .build();
+        when(textualProductionService.getById(UUID.fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454")))
+            .thenThrow(new EntityNotFoundException());
+
+        // act && assert
+        mockMvc.perform(put("/api/v1/textual-production/f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(textualProduction)))
+                .andExpect(status().isNotFound());
     }
 
     @Test
