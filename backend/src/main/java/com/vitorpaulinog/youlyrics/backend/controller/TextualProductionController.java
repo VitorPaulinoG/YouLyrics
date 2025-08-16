@@ -1,59 +1,53 @@
 package com.vitorpaulinog.youlyrics.backend.controller;
 
+import com.vitorpaulinog.youlyrics.backend.dto.request.TextualProductionCreateRequestDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.vitorpaulinog.youlyrics.backend.domain.TextualProduction;
 import com.vitorpaulinog.youlyrics.backend.service.TextualProductionService;
-
 import lombok.RequiredArgsConstructor;
+import java.net.URI;
 
-import java.util.UUID;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/v1/textual-production")
+@RequestMapping("/api/v1/textual-productions")
 @RequiredArgsConstructor
+@Tag(name = "Textual Production", description = "Textual Production operations")
 public class TextualProductionController {
-    private final TextualProductionService textualProductionService;
 
-    @GetMapping
-    public ResponseEntity<?> getAll() {
-        var textualProductions = textualProductionService.getAll();
-        return ResponseEntity.ok(textualProductions);
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<?> getById(@PathVariable UUID id) {
-        var textualProduction = textualProductionService.getById(id);
-        return ResponseEntity.ok(textualProduction);
-    }
+    private final TextualProductionService service;
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody TextualProduction textualProduction) {
-        textualProductionService.save(textualProduction);
+    @Operation(
+        summary = "Save Textual Production",
+        description = "Endpoint to **save** a new *Textual Production*.",
+        responses = {
+            @ApiResponse(
+                responseCode = "201", description = "Textual Production saved successfully.",
+                headers = {
+                    @Header(name = "Location", description = "A URI to read this saved Textual Production")
+                }
+            )
+        }
+    )
+    public ResponseEntity<?> save(@Valid @RequestBody TextualProductionCreateRequestDto textualProduction) {
+        var result = service.save(textualProduction);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(null);
-    }
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(result.getId())
+                .toUri();
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody TextualProduction updatedTextualProduction) {
-        textualProductionService.update(id, updatedTextualProduction);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable UUID id) {
-        textualProductionService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.created(location).build();
     }
 
 }
