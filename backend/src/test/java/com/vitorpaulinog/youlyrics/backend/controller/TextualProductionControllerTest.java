@@ -1,5 +1,6 @@
 package com.vitorpaulinog.youlyrics.backend.controller;
 
+import com.vitorpaulinog.youlyrics.backend.domain.entity.TextualProduction;
 import com.vitorpaulinog.youlyrics.backend.dto.request.TextualProductionCreateRequestDto;
 import com.vitorpaulinog.youlyrics.backend.repository.TextualProductionRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -11,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -68,6 +71,32 @@ public class TextualProductionControllerTest {
                     .content(objectMapper.writeValueAsString(textualProduction)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code", is("VALIDATION_ERROR")));
+    }
+
+    @Test
+    void findAll_should_return200_when_TextualProductionsIsSuccessfullyFound() throws Exception {
+        // arrange
+        repository.saveAll(List.of(
+                TextualProduction.builder()
+                    .title("Title01")
+                    .content("Content01")
+                    .literaryGenre("Literary Genre")
+                    .build(),
+                TextualProduction.builder()
+                    .title("Title02")
+                    .content("Content02")
+                    .literaryGenre("Literary Genre")
+                    .build()
+        ));
+
+
+        // act && assert
+        mockMvc.perform(get("/api/v1/textual-productions")
+                        .queryParam("page", "0")
+                        .queryParam("size", "10")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[1].title", is("Title02")));
     }
 
 }

@@ -1,20 +1,22 @@
 package com.vitorpaulinog.youlyrics.backend.controller;
 
 import com.vitorpaulinog.youlyrics.backend.dto.request.TextualProductionCreateRequestDto;
+import com.vitorpaulinog.youlyrics.backend.dto.response.TextualProductionGetResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 import com.vitorpaulinog.youlyrics.backend.service.TextualProductionService;
 import lombok.RequiredArgsConstructor;
 import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
@@ -24,6 +26,25 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class TextualProductionController {
 
     private final TextualProductionService service;
+
+
+    @GetMapping
+    @Operation(
+        summary = "Get Paginated Textual Productions",
+        description = "Endpoint to **get** paginated Textual Productions.",
+        responses = {
+                @ApiResponse(
+                        responseCode = "200",
+                        description = "Textual Productions successfully obtained"
+                )
+        }
+    )
+    public ResponseEntity<Page<TextualProductionGetResponseDto>> findAll(Pageable pageable) {
+        var pages = service.findAll(pageable);
+
+        return ResponseEntity.ok(pages);
+    }
+
 
     @PostMapping
     @Operation(
