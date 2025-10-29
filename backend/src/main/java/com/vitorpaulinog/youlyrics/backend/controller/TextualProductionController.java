@@ -27,16 +27,15 @@ public class TextualProductionController {
 
     private final TextualProductionService service;
 
-
     @GetMapping
     @Operation(
         summary = "Get Paginated Textual Productions",
         description = "Endpoint to **get** paginated Textual Productions.",
         responses = {
-                @ApiResponse(
-                        responseCode = "200",
-                        description = "Textual Productions successfully obtained"
-                )
+            @ApiResponse(
+                responseCode = "200",
+                description = "Textual Productions successfully obtained"
+            )
         }
     )
     public ResponseEntity<Page<TextualProductionGetResponseDto>> findAll(Pageable pageable) {

@@ -1,13 +1,17 @@
-FROM maven:3.9-eclipse-temurin-17 AS builder
+FROM eclipse-temurin:21-jdk-alpine AS builder
 WORKDIR /app
 
+COPY .mvn .mvn/
+COPY mvnw .
+COPY mvnw.cmd .
 COPY pom.xml .
-
-RUN mvn dependency:go-offline
 COPY src ./src
-RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:17-jre AS runner
+RUN chmod +x mvnw
+RUN ./mvnw clean package -DskipTests
+
+FROM eclipse-temurin:21-jre-alpine AS runner
 WORKDIR /app
+
 COPY --from=builder /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

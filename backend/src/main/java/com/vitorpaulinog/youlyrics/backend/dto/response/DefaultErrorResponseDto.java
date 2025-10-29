@@ -4,9 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.http.MediaType;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -16,8 +13,10 @@ import java.time.LocalDateTime;
 public class DefaultErrorResponseDto {
     @Schema(description = "Error code", example = "SOME_ERROR")
     private String code;
+    
     @Schema(description = "Descriptive message of the error", example = "Some error has occurred")
     private String message;
+    
     @Schema(description = "Date and time the error occurred", example = "2024-08-15T14:30:00Z")
     private LocalDateTime timestamp;
 

@@ -1,6 +1,5 @@
 package com.vitorpaulinog.youlyrics.backend.domain.entity;
 
-import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.*;
