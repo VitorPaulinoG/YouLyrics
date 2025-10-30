@@ -16,7 +16,8 @@ public class HomeController {
     @PreAuthorize("authenticated()")
     public String home(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal) {
         var email = principal.getAttribute("email");
-        return "Hello, " + email;
+        var name = principal.getAttribute("name");
+        return "Hello, " + name + "! Your email is " + email;
     }
 
     @GetMapping("/test")

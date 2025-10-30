@@ -16,6 +16,10 @@ spring:
     import: optional:file:.env[.properties]
   security:
     oauth2:
+      authorizationserver:
+        endpoint:
+          oidc:
+            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
       resourceserver:
         opaquetoken:
           introspection-uri: https://oauth2.googleapis.com/tokeninfo
