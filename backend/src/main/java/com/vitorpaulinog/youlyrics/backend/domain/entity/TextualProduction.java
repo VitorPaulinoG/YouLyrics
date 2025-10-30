@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "tb_textual_production")
 @Data
 @Builder
 @AllArgsConstructor
@@ -18,12 +19,15 @@ public class TextualProduction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    
     @NotBlank(message = "Title cannot be blank")
-    @Column(nullable = false)
+    @Column(nullable = false) 
     private String title;
+
     @NotBlank(message = "Content cannot be blank")
     @Column(nullable = false)
     private String content;
+    
     @NotBlank(message = "LiteraryGenre cannot be blank")
     @Column(nullable = false)
     private String literaryGenre;

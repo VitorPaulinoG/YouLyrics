@@ -27,54 +27,36 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.vitorpaulinog.youlyrics.backend.service.UserService;
+
 @Configuration
 public class GoogleTokenIntrospectorConfig {
     
+    @Value("${spring.security.oauth2.authorizationserver.endpoint.oidc.user-info-uri}")
+    private String userinfoEndpoint;
+
     private RestTemplate restTemplate;
 
     private OAuth2ResourceServerProperties resourceServerProps;
 
-    @Value("${spring.security.oauth2.authorizationserver.endpoint.oidc.user-info-uri}")
-    private String userinfoEndpoint;
+    private final UserService userService;
 
     public GoogleTokenIntrospectorConfig(
         OAuth2ResourceServerProperties resourceServerProps,
-        RestTemplateBuilder restTemplateBuilder
+        RestTemplateBuilder restTemplateBuilder,
+        UserService userService
     ) {
         this.restTemplate = restTemplateBuilder.build();
         this.resourceServerProps = resourceServerProps;
+        this.userService = userService;
     }
-
     
     @Bean
     OpaqueTokenIntrospector introspector() {
         return (token) -> {
-            String introspectionEndpoint = UriComponentsBuilder.fromUriString(
-                resourceServerProps.getOpaquetoken()
-                    .getIntrospectionUri()
-            )
-            .queryParam("access_token", token)
-            .toUriString();
-
-
             try {
-                @SuppressWarnings("unchecked")
-                Map<String, Object> claims = new HashMap<>(restTemplate.getForObject(introspectionEndpoint, Map.class));
-
-                Map<String, Object> userClaims = getUserClaims(token);
-                claims.putAll(userClaims);
-
-                if (claims.containsKey("exp")) {
-                    long expSeconds = Long.parseLong(claims.get("exp").toString());
-                    claims.put("exp", Instant.ofEpochSecond(expSeconds));
-                }
-
-                if (claims.containsKey("iat")) {
-                    long iatSeconds = Long.parseLong(claims.get("iat").toString());
-                    claims.put("iat", Instant.ofEpochSecond(iatSeconds));
-                }
-
-
+                var claims = getClaims(token);
+                
                 Collection<GrantedAuthority> authorities = new ArrayList<>();
                 if (claims.containsKey("scope")) {
                     String scope = (String) claims.get("scope");
@@ -93,6 +75,31 @@ public class GoogleTokenIntrospectorConfig {
         };
     }
 
+    private Map<String, Object> getClaims(String token) {
+        String introspectionEndpoint = UriComponentsBuilder.fromUriString(
+                resourceServerProps.getOpaquetoken()
+                    .getIntrospectionUri()
+            )
+            .queryParam("access_token", token)
+            .toUriString();
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> claims = new HashMap<>(restTemplate.getForObject(introspectionEndpoint, Map.class));
+        claims.putAll(getUserClaims(token));
+
+        if (claims.containsKey("exp")) {
+            long expSeconds = Long.parseLong(claims.get("exp").toString());
+            claims.put("exp", Instant.ofEpochSecond(expSeconds));
+        }
+
+        if (claims.containsKey("iat")) {
+            long iatSeconds = Long.parseLong(claims.get("iat").toString());
+            claims.put("iat", Instant.ofEpochSecond(iatSeconds));
+        }
+
+
+        return claims;
+    }
 
     private Map<String, Object> getUserClaims(String token) {
         String userinfoURL = UriComponentsBuilder.fromUriString(
@@ -103,11 +110,14 @@ public class GoogleTokenIntrospectorConfig {
         headers.set("Authorization", "Bearer " + token);
         HttpEntity<Void> userinfoRequestEntity = new HttpEntity<>(headers);
         
-        ResponseEntity<Map> a = restTemplate.exchange(userinfoURL, HttpMethod.GET, userinfoRequestEntity,Map.class);
-        
+        var response = restTemplate.exchange(userinfoURL, HttpMethod.GET, userinfoRequestEntity,Map.class);
         
         @SuppressWarnings("unchecked")
-        Map<String, Object> userClaims = new HashMap<String, Object>(a.getBody());
+        Map<String, Object> userClaims = new HashMap<String, Object>(response.getBody());
+        
+        userService.createIfNotExistsByEmail(userClaims.get("email").toString(), userClaims);
+        
         return userClaims;
     }
+    
 }
