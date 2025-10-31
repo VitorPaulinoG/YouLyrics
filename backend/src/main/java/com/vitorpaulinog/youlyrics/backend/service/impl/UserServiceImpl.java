@@ -29,16 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createIfNotExistsByEmail(String email, Map<String, Object> userClaims) {
-        if (existsByEmail(email)) 
-            return;
-        
+    public User create(Map<String, Object> userClaims) {
         User user = User.builder()
-            .email(email)
-            .name(userClaims.get("name").toString()) 
+            .email((String) userClaims.get("email"))
+            .name((String) userClaims.get("name")) 
             .build();
 
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
 }

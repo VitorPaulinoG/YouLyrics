@@ -16,10 +16,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.core.DefaultOAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
@@ -27,6 +25,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.vitorpaulinog.youlyrics.backend.core.security.OAuth2LoggedUser;
+import com.vitorpaulinog.youlyrics.backend.domain.entity.User;
 import com.vitorpaulinog.youlyrics.backend.service.UserService;
 
 @Configuration
@@ -65,7 +65,8 @@ public class GoogleTokenIntrospectorConfig {
                             .collect(Collectors.toList());
                 }
 
-                return new DefaultOAuth2AuthenticatedPrincipal(claims.get("sub").toString(), claims, authorities);
+                var user = getUser(token, (String) claims.get("email"));
+                return new OAuth2LoggedUser(claims, authorities, user);
 
             } catch (HttpClientErrorException e) {
                 throw new OAuth2AuthenticationException(
@@ -85,23 +86,26 @@ public class GoogleTokenIntrospectorConfig {
 
         @SuppressWarnings("unchecked")
         Map<String, Object> claims = new HashMap<>(restTemplate.getForObject(introspectionEndpoint, Map.class));
-        claims.putAll(getUserClaims(token));
 
         if (claims.containsKey("exp")) {
-            long expSeconds = Long.parseLong(claims.get("exp").toString());
+            long expSeconds = Long.parseLong((String) claims.get("exp"));
             claims.put("exp", Instant.ofEpochSecond(expSeconds));
         }
 
         if (claims.containsKey("iat")) {
-            long iatSeconds = Long.parseLong(claims.get("iat").toString());
+            long iatSeconds = Long.parseLong((String) claims.get("iat"));
             claims.put("iat", Instant.ofEpochSecond(iatSeconds));
         }
-
 
         return claims;
     }
 
-    private Map<String, Object> getUserClaims(String token) {
+    private User getUser(String token, String email) {
+        var registeredUser = userService.findByEmail(email);
+        if (registeredUser.isPresent()) {
+            return registeredUser.get();
+        }
+        
         String userinfoURL = UriComponentsBuilder.fromUriString(
             userinfoEndpoint
         ).toUriString();
@@ -115,9 +119,7 @@ public class GoogleTokenIntrospectorConfig {
         @SuppressWarnings("unchecked")
         Map<String, Object> userClaims = new HashMap<String, Object>(response.getBody());
         
-        userService.createIfNotExistsByEmail(userClaims.get("email").toString(), userClaims);
-        
-        return userClaims;
+        return userService.create(userClaims);
     }
     
 }

@@ -1,5 +1,6 @@
 package com.vitorpaulinog.youlyrics.backend.service.impl;
 
+import com.vitorpaulinog.youlyrics.backend.domain.entity.User;
 import com.vitorpaulinog.youlyrics.backend.dto.mapper.TextualProductionMapper;
 import com.vitorpaulinog.youlyrics.backend.dto.request.TextualProductionCreateRequestDto;
 import com.vitorpaulinog.youlyrics.backend.dto.response.TextualProductionCreateResponseDto;
@@ -31,9 +32,12 @@ public class TextualProductionServiceImpl implements TextualProductionService {
     }
 
     @Override
-    public TextualProductionCreateResponseDto save(TextualProductionCreateRequestDto textualProduction)
+    public TextualProductionCreateResponseDto save(TextualProductionCreateRequestDto dto, User user)
         throws ConstraintViolationException {
-        var savedTextualProduction = this.repository.save(mapper.toEntity(textualProduction));
+        var textualProduction = mapper.toEntity(dto);
+        textualProduction.setAuthor(user);
+        
+        var savedTextualProduction = this.repository.save(textualProduction);
         return mapper.toCreateDto(savedTextualProduction);
     }
 

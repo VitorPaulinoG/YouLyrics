@@ -31,4 +31,8 @@ public class TextualProduction {
     @NotBlank(message = "LiteraryGenre cannot be blank")
     @Column(nullable = false)
     private String literaryGenre;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private User author;
 }

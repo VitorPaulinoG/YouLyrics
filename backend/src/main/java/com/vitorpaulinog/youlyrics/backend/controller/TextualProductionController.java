@@ -1,5 +1,6 @@
 package com.vitorpaulinog.youlyrics.backend.controller;
 
+import com.vitorpaulinog.youlyrics.backend.core.security.OAuth2LoggedUser;
 import com.vitorpaulinog.youlyrics.backend.dto.request.TextualProductionCreateRequestDto;
 import com.vitorpaulinog.youlyrics.backend.dto.response.TextualProductionGetResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
@@ -42,7 +44,6 @@ public class TextualProductionController {
         return ResponseEntity.ok(pages);
     }
 
-
     @PostMapping
     @Operation(
         summary = "Save Textual Production",
@@ -56,8 +57,11 @@ public class TextualProductionController {
             )
         }
     )
-    public ResponseEntity<?> save(@Valid @RequestBody TextualProductionCreateRequestDto textualProduction) {
-        var result = service.save(textualProduction);
+    public ResponseEntity<?> save(
+        @Valid @RequestBody TextualProductionCreateRequestDto textualProduction, 
+        @AuthenticationPrincipal OAuth2LoggedUser loggedUser
+    ) {
+        var result = service.save(textualProduction, loggedUser.getUser());
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

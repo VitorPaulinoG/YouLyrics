@@ -8,5 +8,5 @@ import com.vitorpaulinog.youlyrics.backend.domain.entity.User;
 public interface UserService {
     Optional<User> findByEmail(String email);
     Boolean existsByEmail(String email);
-    void createIfNotExistsByEmail(String email, Map<String, Object> userClaims);
+    User create(Map<String, Object> userClaims);
 }
