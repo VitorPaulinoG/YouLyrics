@@ -2,9 +2,10 @@ package com.vitorpaulinog.youlyrics.backend.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+
+import io.swagger.v3.oas.annotations.Operation;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -12,18 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("")
 public class HomeController {
 
-    @GetMapping
-    @PreAuthorize("authenticated()")
-    public String home(@AuthenticationPrincipal OAuth2AuthenticatedPrincipal principal) {
-        var email = principal.getAttribute("email");
-        var name = principal.getAttribute("name");
-        return "Hello, " + name + "! Your email is " + email;
+    @GetMapping("/health-check")
+    @Operation(
+        summary = "Check the health of this API",
+        description = "Endpoint to **check** the YouLyrics API"
+    )
+    public ResponseEntity<String> home() {
+        return ResponseEntity.ok("Hello, world!");
     }
 
-    @GetMapping("/test")
-    @PreAuthorize("authenticated()")
-    public String homeTest() {
-        return "Hello";
-    }
-    
 }

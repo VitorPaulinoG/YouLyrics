@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,11 +31,20 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    @ApiResponse(responseCode = "400", ref = "#/components/responses/ValidationViolation")
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ApiResponse(responseCode = "400", ref = "#/components/responses/ValidationViolation")
     public DefaultErrorResponseDto handleConstraintViolationException(ConstraintViolationException ex) {
         return DefaultErrorResponseDto.builder()
                 .code("VALIDATION_ERROR")
+                .message(ex.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public DefaultErrorResponseDto handleConstraintViolationException(AuthorizationDeniedException ex) {
+        return DefaultErrorResponseDto.builder()
+                .code("AUTHORIZATION_ERROR")
                 .message(ex.getMessage())
                 .build();
     }

@@ -16,17 +16,20 @@ import lombok.RequiredArgsConstructor;
 import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/v1/textual-productions")
+@PreAuthorize("isAuthenticated()")
 @RequiredArgsConstructor
 @Tag(name = "Textual Production", description = "Textual Production operations")
 public class TextualProductionController {
 
     private final TextualProductionService service;
 
+    @PreAuthorize("isAnonymous()")
     @GetMapping
     @Operation(
         summary = "Get Paginated Textual Productions",
