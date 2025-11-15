@@ -1,0 +1,13 @@
+<button matButton 
+    class="rounded-lg flex justify-between items-center 
+        gap-2 py-2.5 px-4 text-primary-500 font-medium
+        hover:bg-secondary-400 active:bg-secondary-500"
+
+    (click)="click"
+>
+    <app-svg-icon [iconConfig]="iconConfig()"/>
+    
+    <ng-content class="flex flex-row">
+    
+    </ng-content>
+</button>

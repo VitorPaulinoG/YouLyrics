@@ -1,0 +1,54 @@
+
+// .scroll-container {
+//   position: relative;
+//   overflow: hidden;
+// }
+
+// .overflow-effect::after {
+//   content: '';
+//   position: absolute;
+//   bottom: -15px;
+//   left: 0;
+//   right: 0;
+//   height: 40px; 
+
+//   background: linear-gradient(to top, rgb(0, 174, 255) -300%, transparent);
+//   filter: blur(10px);
+//   pointer-events: none; 
+// }
+
+.scroll-container {
+  position: relative;
+  overflow: hidden; 
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    height: 40px; 
+
+    background: linear-gradient(to top, rgba(0, 174, 255, 0.7) -200%, transparent);
+    filter: blur(10px);
+    pointer-events: none; 
+    
+    opacity: 0; 
+    
+    transition: opacity 0.9s ease-in-out, background 5s ease-in;
+  }
+
+  &:hover::after {
+    background: linear-gradient(to top, rgba(0, 174, 255, 0.7) -100%, transparent);
+  }
+
+
+}
+
+.overflow-effect {
+  &::after {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+}
