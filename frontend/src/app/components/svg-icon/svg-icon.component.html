@@ -1,0 +1,12 @@
+@if (!iconConfig().svgUrl) {
+    <mat-icon [className]="'flex flex-row items-center' + class" 
+        [ngClass]="{ 'material-icons-outlined': iconConfig().isOutlined }">
+        {{iconConfig().fontIcon}}
+    </mat-icon>
+} @else {
+    <mat-icon class="flex flex-row items-center"
+        [svgIcon]="iconConfig().iconName!"
+        [className]="class"
+    />
+}
+
