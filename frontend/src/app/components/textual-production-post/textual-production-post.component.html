@@ -1,8 +1,7 @@
 <div #container  
     class="flex flex-col pt-8 bg-secondary-300 rounded-lg max-h-224 h-auto">
     <div
-        class="px-9 h-full overflow-y-auto scroll-container"
-        [ngClass]="{ 'overflow-effect': hasOverflow()}"
+        class="px-9 h-full overflow-y-hidden scroll-container"
     >
         <div class="pb-4 flex flex-row justify-center overflow-y-hidden">
             <div class="flex flex-col gap-2 overflow-y-hidden">
@@ -26,6 +25,11 @@
                 </div>
             </div>
         </div>
+
+        <div 
+            class="overflow-effect-element"
+            [ngClass]="{ 'is-visible': hasOverflow() }"
+        ></div>
     </div>
     <div #options
         class="flex flex-row gap-2 w-full px-4 py-2 items-center">
