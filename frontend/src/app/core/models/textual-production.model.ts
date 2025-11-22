@@ -4,5 +4,5 @@ export interface TextualProduction {
     id: string,
     title: string,
     author: User,
-    content: string[]
+    content: string[][]
 }
