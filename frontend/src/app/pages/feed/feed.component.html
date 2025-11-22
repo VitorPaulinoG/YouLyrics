@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-2.5">
     <app-post-composer/>
-    @for (item of payload; track item.id) {
-        <app-textual-production-post [textualProduction]="item"/>
+    @for (textualProduction of textualProductions; track textualProduction.id) {
+        <app-textual-production-post [textualProduction]="textualProduction"/>
     }
     
 </div>

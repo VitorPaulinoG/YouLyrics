@@ -1,10 +1,12 @@
-import { Component, computed, effect, ElementRef, input, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, input, signal, viewChild } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { IconConfig } from '../svg-icon/svg-icon.component';
 import { TextInputComponent } from "../text-input/text-input.component";
 import { TextualProduction } from '../../core/models/textual-production.model';
 import { MenuComponent, MenuOption } from '../menu/menu.component';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-textual-production-post',
@@ -20,9 +22,9 @@ export class TextualProductionPostComponent {
   options = viewChild<ElementRef<HTMLElement>>('options');
   header = viewChild<ElementRef<HTMLElement>>('header');
 
-  private _hasOverflow = signal(false);
   hasOverflow = computed(() => this._hasOverflow());
-
+  private _hasOverflow = signal(false);
+  
   menuOptions: MenuOption[] = [
     {
       iconConfig: {

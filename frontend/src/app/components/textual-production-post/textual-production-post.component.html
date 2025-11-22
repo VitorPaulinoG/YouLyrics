@@ -17,10 +17,14 @@
                     </span>
                 </div>
                 <div #content 
-                    class="flex flex-col text-[2rem]/[2.625rem] whitespace-pre-line gap-2.5 text-primary-500"
+                    class="flex flex-col gap-2.5 text-primary-500"
                 >
                     @for (stanza of textualProduction().content; track $index) {
-                        <p>{{stanza}}</p>
+                        <div class="flex flex-col text-[2rem]/[2.625rem] whitespace-pre-line">
+                            @for (verse of stanza; track $index) {
+                                <p>{{verse}}</p>
+                            }
+                        </div>
                     }
                 </div>
             </div>
