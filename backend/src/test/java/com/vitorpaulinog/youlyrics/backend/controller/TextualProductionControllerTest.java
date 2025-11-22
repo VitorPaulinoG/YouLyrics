@@ -96,7 +96,7 @@ public class TextualProductionControllerTest {
             // arrange
             var textualProduction = TextualProductionCreateRequestDto.builder()
                     .title("Title")
-                    .content("Content")
+                    .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
                     .build();
 
@@ -116,7 +116,7 @@ public class TextualProductionControllerTest {
             // arrange
             var textualProduction = TextualProductionCreateRequestDto.builder()
                     .title("Title")
-                    .content("Content")
+                    .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
                     .build();
 
@@ -133,7 +133,7 @@ public class TextualProductionControllerTest {
             // arrange
             var textualProduction = TextualProductionCreateRequestDto.builder()
                     .title("")
-                    .content("Content")
+                    .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
                     .build();
 
@@ -157,13 +157,13 @@ public class TextualProductionControllerTest {
             repository.saveAll(List.of(
                     TextualProduction.builder()
                         .title("Title01")
-                        .content("Content01")
+                        .content(List.of(List.of("Content01")))
                         .literaryGenre("Literary Genre")
                         .author(loggedUser)
                         .build(),
                     TextualProduction.builder()
                         .title("Title02")
-                        .content("Content02")
+                        .content(List.of(List.of("Content")))
                         .literaryGenre("Literary Genre")
                         .author(loggedUser)
                         .build()

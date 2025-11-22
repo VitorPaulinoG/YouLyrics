@@ -76,13 +76,13 @@ public class TextualProductionServiceImplTest {
         void shouldSaveTextualProduction() {
             var textualProductionDto = TextualProductionCreateRequestDto.builder()
                     .title("Title")
-                    .content("Content")
+                    .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
                     .build();
 
             var textualProductionMock = TextualProduction.builder()
                     .title("Title")
-                    .content("Content")
+                    .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
                     .build();
 
@@ -108,14 +108,14 @@ public class TextualProductionServiceImplTest {
                     TextualProduction.builder()
                         .id(UUID.fromString("db6f04ca-cabc-4daf-8a03-ecb3a0c3bf26"))
                         .title("Title01")
-                        .content("Content01")
+                        .content(List.of(List.of("Content")))
                         .literaryGenre("Literary Genre")
                         .author(user)
                         .build(),
                     TextualProduction.builder()
                         .id(UUID.fromString("1223fccd-ece6-4c8d-b9dc-2aea3b161b7b"))
                         .title("Title02")
-                        .content("Content02")
+                        .content(List.of(List.of("Content")))
                         .literaryGenre("Literary Genre")
                         .author(user)
                         .build()

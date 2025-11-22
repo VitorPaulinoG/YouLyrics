@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -14,7 +15,7 @@ import java.util.UUID;
 public class TextualProductionGetResponseDto {
     private UUID id;
     private String title;
-    private String content;
+    private List<List<String>> content;
     private String literaryGenre;
     private UserGetResponseDto author;
 }
