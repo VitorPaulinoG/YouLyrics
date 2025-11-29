@@ -1,5 +1,5 @@
-<label class="flex flex-row items-center rounded-lg bg-secondary-400 w-full min-h-12 px-1">
-    <div class="flex flex-row items-center px-5 gap-2.5 w-full">
+<label class="flex flex-row items-center bg-secondary-400 w-full min-h-12 py-1" [ngClass]="{ 'rounded-lg': isRounded() }">
+    <div class="flex flex-row items-center px-2 gap-2.5 w-full">
         <div class="flex justify-center items-center w-auto">
             <app-svg-icon 
                 [iconConfig]="iconConfig()" 

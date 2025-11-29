@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextualProductionPostComponent } from './textual-production-post.component';
+import { TextualProductionPostMasterComponent } from './textual-production-post-master.component';
 
 describe('TextualProductionPostComponent', () => {
-  let component: TextualProductionPostComponent;
-  let fixture: ComponentFixture<TextualProductionPostComponent>;
+  let component: TextualProductionPostMasterComponent;
+  let fixture: ComponentFixture<TextualProductionPostMasterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TextualProductionPostComponent]
+      imports: [TextualProductionPostMasterComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TextualProductionPostComponent);
+    fixture = TestBed.createComponent(TextualProductionPostMasterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -14,14 +14,15 @@
   
   transition: opacity 0.3s ease-in-out;
 
-  background: linear-gradient(to top, rgba(0, 174, 255, 0.7) -200%, transparent);
+  // background: linear-gradient(to top, rgba(0, 174, 255, 0.7) -200%, transparent);
+  background: linear-gradient(to top, rgba(99, 83, 127, 0.7) -200%, transparent);
   filter: blur(10px);
 
   &::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 174, 255, 1) -100%, transparent);
+    background: linear-gradient(to top, rgba(99, 83, 127, 1) -100%, transparent);
     filter: blur(10px);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
@@ -36,3 +37,7 @@
     opacity: 1;
   }
 }
+
+
+
+

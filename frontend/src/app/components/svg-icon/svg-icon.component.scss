@@ -8,3 +8,10 @@
 .icon-outlined {
   font-variation-settings: 'FILL' 0;
 }
+
+:host ::ng-deep {
+  .material-icons-outlined,
+  .material-icons {
+    display: flex !important;
+  }
+}

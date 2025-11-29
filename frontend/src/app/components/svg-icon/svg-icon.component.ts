@@ -3,21 +3,25 @@ import { ChangeDetectionStrategy, Component, inject, input, Input, OnChanges, Si
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
-type SvgIconConfig = {
+interface SvgIconConfig {
   svgUrl: string;  
   iconName: string;
   fontIcon?: never;
   isOutlined?: boolean;
 }
 
-type FontIconConfig = {
+interface FontIconConfig {
   fontIcon: string;
   isOutlined: boolean;
   svgUrl?: never;
   iconName?: never;
 }
 
-export type IconConfig = SvgIconConfig | FontIconConfig;
+interface CommonsIconConfig {
+  roundedBackground: boolean;
+}
+
+export type IconConfig = CommonsIconConfig & (SvgIconConfig | FontIconConfig);
 
 @Component({
   selector: 'app-svg-icon',
@@ -26,7 +30,7 @@ export type IconConfig = SvgIconConfig | FontIconConfig;
   styleUrl: './svg-icon.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    'class':'flex flex-row items-center' 
+    'class': 'flex flex-row items-center justify-center w-auto h-auto' 
   }
 })
 export class SvgIconComponent implements OnChanges{
