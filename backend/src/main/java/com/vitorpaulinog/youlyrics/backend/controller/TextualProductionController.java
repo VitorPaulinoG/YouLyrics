@@ -29,7 +29,7 @@ public class TextualProductionController {
 
     private final TextualProductionService service;
 
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("permitAll()")
     @GetMapping
     @Operation(
         summary = "Get Paginated Textual Productions",

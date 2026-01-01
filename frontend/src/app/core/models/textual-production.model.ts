@@ -6,4 +6,5 @@ export interface TextualProduction {
     author: User;
     content: string[][];
     literaryGenre: string;
+    description?: string;
 }

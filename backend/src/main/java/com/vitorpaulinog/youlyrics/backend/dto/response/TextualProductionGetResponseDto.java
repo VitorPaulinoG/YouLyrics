@@ -17,5 +17,6 @@ public class TextualProductionGetResponseDto {
     private String title;
     private List<List<String>> content;
     private String literaryGenre;
+    private String description;
     private UserGetResponseDto author;
 }

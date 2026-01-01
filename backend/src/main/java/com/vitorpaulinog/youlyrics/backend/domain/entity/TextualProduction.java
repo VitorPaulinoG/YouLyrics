@@ -44,4 +44,7 @@ public class TextualProduction {
     @JoinColumn(name = "author_id", nullable = false)
     @NotNull
     private User author;
+
+    @Column(nullable = true, length = 2000)
+    private String description;
 }
