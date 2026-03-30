@@ -1,4 +1,3 @@
-
 services:
   youlyrics-backend:
     build:
@@ -10,6 +9,10 @@ services:
       - .env
     networks:
       - youlyrics-net
+    depends_on:
+      youlyrics-db:
+        condition: service_healthy
+
   youlyrics-db:
     image: postgres:15.13
     environment:
@@ -20,10 +23,55 @@ services:
       - "${HOST_DB_PORT}:5432"
     volumes:
       - youlyrics-db-vol:/var/lib/postgresql/data
-
     networks:
       - youlyrics-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  keycloak-db:
+    image: postgres:15.13
+    environment:
+      POSTGRES_USER: ${KEYCLOAK_DB_USERNAME}
+      POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+      POSTGRES_DB: keycloak
+    ports:
+      - "${KEYCLOAK_DB_HOST_PORT}:5432"
+    volumes:
+      - keycloak-db-vol:/var/lib/postgresql/data
+    networks:
+      - youlyrics-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${KEYCLOAK_DB_USERNAME} -d keycloak"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  youlyrics-keycloak:
+    image: quay.io/keycloak/keycloak:26.1.0
+    command: start-dev --import-realm
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: ${KEYCLOAK_DB_USERNAME}
+      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+    ports:
+      - "${KEYCLOAK_HOST_PORT}:8080"
+    networks:
+      - youlyrics-net
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+
 volumes:
   youlyrics-db-vol:
+  keycloak-db-vol:
+
 networks:
   youlyrics-net:
