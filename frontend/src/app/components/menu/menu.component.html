@@ -3,8 +3,9 @@
     (mouseleave)="hideMenu($event)"
 >
     @if (show()) {
-        <div class="absolute bottom-10 right-0 py-3.5" [@menuAnimation]>
-            <div class="w-64 h-auto flex flex-col items-center bg-secondary-300 rounded-lg shadow-2xl overflow-clip">
+        <div class="absolute py-3.5 z-50" [@menuAnimation] [ngClass]="getMenuPosition()">
+            <div class="w-64 h-auto flex flex-col items-center bg-secondary-300 shadow-2xl overflow-clip" 
+                [ngClass]="getSharpCornerStyle()">
                 @for (option of menuOptions(); track $index) {
                     <div 
                         class="w-full min-h-12 flex flex-row items-center gap-2.5 text-primary-500 p-2.5 
