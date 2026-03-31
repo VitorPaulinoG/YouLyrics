@@ -9,6 +9,7 @@ import com.vitorpaulinog.youlyrics.backend.domain.entity.User;
 
 
 public interface UserRepository extends JpaRepository<User, UUID>{
+    Optional<User> findByKeycloakId(String keycloakId);
     Optional<User> findByEmail(String email);
     Boolean existsByEmail(String email);
 }

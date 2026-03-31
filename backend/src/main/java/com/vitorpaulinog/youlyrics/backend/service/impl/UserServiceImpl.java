@@ -19,6 +19,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findByKeycloakId(String keycloakId) {
+        return userRepository.findByKeycloakId(keycloakId);
+    }
+
+    @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -31,8 +36,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(Map<String, Object> userClaims) {
         User user = User.builder()
+            .keycloakId((String) userClaims.get("sub"))
             .email((String) userClaims.get("email"))
-            .name((String) userClaims.get("name")) 
+            .name((String) userClaims.get("name"))
             .build();
 
         return userRepository.save(user);

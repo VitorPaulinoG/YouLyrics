@@ -16,13 +16,16 @@ spring:
     import: optional:file:.env[.properties]
   security:
     oauth2:
-      authorizationserver:
-        endpoint:
-          oidc:
-            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
       resourceserver:
-        opaquetoken:
-          introspection-uri: https://oauth2.googleapis.com/tokeninfo
+        jwt:
+          issuer-uri: ${keycloak-url}/realms/${realm-name}
+          jwk-set-uri: ${keycloak-url}/realms/${realm-name}/protocol/openid-connect/certs
+
+logging:
+  level: 
+    '[org.springframework.security]': DEBUG
+    '[org.springframework.security.web.access]': DEBUG
+    '[org.springframework.security.oauth2]': DEBUG
 
 server:
   port: 8080
@@ -30,8 +33,9 @@ server:
 springdoc:
   swagger-ui:
     oauth:
-      client-id: ${GOOGLE_CLIENT_ID}
-      client-secret: ${GOOGLE_CLIENT_SECRET}
+      client-id: ${SWAGGER_CLIENT_ID}
+      realm: youlyricsc
+      app-name: YouLyrics API Docs
       use-pkce-with-authorization-code-grant: true
       additional-query-string-params:
         access_type: offline
@@ -48,4 +52,7 @@ springdoc:
     path: /v3/api-docs
   show-login-endpoint: true
   show-oauth2-endpoints: true
-    
+
+keycloak-url: http://youlyrics-keycloak:8080
+keycloak-external-url: http://localhost:${KEYCLOAK_HOST_PORT}
+realm-name: youlyrics
