@@ -22,7 +22,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/v1/textual-productions")
-@PreAuthorize("isAuthenticated()")
 @RequiredArgsConstructor
 @Tag(name = "Textual Production", description = "Textual Production operations")
 public class TextualProductionController {
@@ -48,6 +47,7 @@ public class TextualProductionController {
     }
 
     @PostMapping
+    @PreAuthorize("isAuthenticated()")
     @Operation(
         summary = "Save Textual Production",
         description = "Endpoint to **save** a new *Textual Production*.",

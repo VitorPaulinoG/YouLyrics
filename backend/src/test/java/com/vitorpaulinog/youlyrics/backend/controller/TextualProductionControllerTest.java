@@ -63,6 +63,7 @@ public class TextualProductionControllerTest {
     @BeforeEach
     public void setUp() {
         loggedUser = userRepository.save(User.builder()
+            .keycloakId("keycloak-test-id")
             .email("fulano@email.com")
             .name("Fulano de Tal")
             .build()
