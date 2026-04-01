@@ -28,7 +28,6 @@ public class TextualProductionController {
 
     private final TextualProductionService service;
 
-    @PreAuthorize("permitAll()")
     @GetMapping
     @Operation(
         summary = "Get Paginated Textual Productions",
@@ -47,7 +46,6 @@ public class TextualProductionController {
     }
 
     @PostMapping
-    @PreAuthorize("isAuthenticated()")
     @Operation(
         summary = "Save Textual Production",
         description = "Endpoint to **save** a new *Textual Production*.",

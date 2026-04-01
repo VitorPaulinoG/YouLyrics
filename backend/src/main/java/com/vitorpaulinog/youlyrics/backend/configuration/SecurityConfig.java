@@ -57,7 +57,7 @@ public class SecurityConfig {
         return http
             .cors(cors -> cors.configurationSource(request -> {
                 var corsConfiguration = new CorsConfiguration();
-                corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200"));
+                corsConfiguration.setAllowedOrigins(List.of("http://localhost:5173"));
                 corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 corsConfiguration.setAllowedHeaders(List.of("*"));
                 return corsConfiguration;
@@ -66,6 +66,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> {
                 auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/health-check").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/textual-productions").permitAll()
                     .requestMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
@@ -84,4 +86,3 @@ public class SecurityConfig {
             .build();
     }
 }
-
