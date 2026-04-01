@@ -1,0 +1,22 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(17, 12, 24, 0.28);
+  backdrop-filter: blur(6px);
+}
+
+.modal__panel {
+  position: relative;
+  z-index: 1;
+}
