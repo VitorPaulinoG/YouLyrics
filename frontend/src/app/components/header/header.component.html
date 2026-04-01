@@ -8,11 +8,25 @@
             [iconConfig]="{ svgUrl: 'assets/icons/notification-icon.svg', iconName: 'notification', roundedBackground: true}"
             class="w-10 h-10"
         />
-
-        <app-svg-icon 
-            iconName="profile" 
-            [iconConfig]="{ svgUrl: 'assets/icons/profile-icon.svg', iconName: 'profile', roundedBackground: true }"
-            class="w-10 h-10"
-        />
+        @if (isAuthenticated) {
+            <app-menu [menuOptions]="menuOptions" sharpCornerStyle="Top-Right" menuPosition="Bottom-Left">
+                <app-svg-icon 
+                    iconName="profile" 
+                    [iconConfig]="{ svgUrl: 'assets/icons/profile-icon.svg', iconName: 'profile', roundedBackground: true }"
+                    class="w-10 h-10"
+                />
+            </app-menu>
+        } @else {
+            <div class="flex items-center text-primary-500 font-medium gap-2.5" (click)="onLoginClick()">
+                <app-svg-icon 
+                    iconName="profile" 
+                    [iconConfig]="{ svgUrl: 'assets/icons/profile-icon.svg', iconName: 'profile', roundedBackground: true }"
+                    class="w-10 h-10"
+                />
+                <span class="text-[0.875rem]">
+                    Login
+                </span>
+            </div>
+        }
     </div>
 </div>
