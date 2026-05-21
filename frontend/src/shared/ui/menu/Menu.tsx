@@ -73,7 +73,9 @@ export function Menu({
               <div className="w-full" key={`${option.title}-${index}`}>
                 <button
                   type="button"
-                  className="flex min-h-12 w-full flex-row items-center gap-2.5 p-2.5 text-primary-500 transition-colors duration-200 ease-in-out hover:bg-secondary-400 active:bg-secondary-500"
+                  className="flex min-h-12 w-full flex-row items-center gap-2.5 p-2.5 
+                    hinttext-2/primary-02 transition-colors duration-200 ease-in-out 
+                    hover:bg-secondary-03 active:bg-secondary-02"
                   onClick={option.action}
                 >
                   <Icon className="h-8 w-8" iconConfig={option.iconConfig} />
@@ -81,7 +83,7 @@ export function Menu({
                 </button>
                 {index < menuOptions.length - 1 && (
                   <div className="w-full px-2.5">
-                    <hr className="h-px border-0 bg-primary-300" />
+                    <hr className="h-px border-0 bg-primary-03" />
                   </div>
                 )}
               </div>

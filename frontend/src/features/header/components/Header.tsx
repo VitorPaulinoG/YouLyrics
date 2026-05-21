@@ -37,12 +37,12 @@ export function Header() {
   );
 
   return (
-    <div className="flex flex-row rounded-lg bg-secondary-300 px-4 py-2 sm:px-8 sm:py-1">
+    <div className="flex flex-row justify-between items-center rounded-lg bg-primary-06 px-8 py-1">
       <img alt="YouLyrics Logo" height="48" src={logoUrl} />
-      <div className="w-full px-3 sm:px-7">
+      <div className="w-full px-7">
         <SearchBar />
       </div>
-      <div className="flex h-12 w-auto flex-row gap-2.5">
+      <div className="flex items-center h-12 w-auto flex-row gap-2.5">
         <Icon
           className="h-10 w-10"
           iconConfig={{
@@ -52,7 +52,11 @@ export function Header() {
           }}
         />
         {isAuthenticated ? (
-          <Menu menuOptions={menuOptions} menuPosition="Bottom-Left" sharpCornerStyle="Top-Right">
+          <Menu 
+            menuOptions={menuOptions} 
+            menuPosition="Bottom-Left" 
+            sharpCornerStyle="Top-Right"
+          >
             <Icon
               className="h-10 w-10"
               iconConfig={{
@@ -63,7 +67,10 @@ export function Header() {
             />
           </Menu>
         ) : (
-          <button className="flex items-center gap-2.5 font-medium text-primary-500" onClick={() => void login('/')} type="button">
+          <button className="flex items-center gap-2.5 font-medium text-primary-02" 
+            onClick={() => void login('/')} 
+            type="button"
+          >
             <Icon
               className="h-10 w-10"
               iconConfig={{
@@ -72,7 +79,7 @@ export function Header() {
                 roundedBackground: true,
               }}
             />
-            <span className="text-[0.875rem]">Login</span>
+            <span className='subtitle-2'>Login</span>
           </button>
         )}
       </div>

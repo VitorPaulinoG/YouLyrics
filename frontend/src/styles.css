@@ -10,11 +10,96 @@
   --color-secondary-500: rgb(194, 204, 230);
   --color-secondary-400: rgb(238, 241, 248);
   --color-secondary-300: rgb(248, 249, 252);
+
+  --color-primary-01: #372c49;
+  --color-primary-02: #63537F;
+  --color-primary-03: #A193B8;
+  --color-primary-04: #CFC5DF;
+  --color-primary-05: #EDEBF0;
+  --color-primary-06: #F8F9FC;
+  --color-secondary-01: #ACC4FC;
+  --color-secondary-02: #C2CCE6;
+  --color-secondary-03: #EEF1F8;
+  --color-secondary-04: #F8F9FC;
+
+
+  /* HEADLINE */
+  --headline-size-1: 4rem;
+  --headline-size-2: 3.25rem;
+  --headline-size-3: 2.5rem;
+  --headline-size-4: 2rem;
+
+  --headline-leading-1: 1;
+  --headline-leading-2: 1;
+  --headline-leading-3: 1;
+  --headline-leading-4: 1;
+
+  /* BODY */
+  --body-size-1: 2rem;
+  --body-size-2: 1.5rem;
+  --body-leading-1: 1.3;
+  --body-leading-2: 1.15;
+  
+  /* SUBTITLE */
+  --subtitle-size-1: 1rem;
+  --subtitle-size-2: 0.875rem;
+  --subtitle-leading-1: 1.25;
+  --subtitle-leading-2: 1.4;
+
+  /* DESCRIPTION */
+  --description-size-1: 1rem;
+  --description-size-2: 0.875rem;
+  --description-leading-1: 1.75;
+  --description-leading-2: 1.15;
+  
+  /* HINT-TEXT */
+  --hinttext-size-1: 1.25rem;
+  --hinttext-size-2: 1rem;
+  --hinttext-size-3: 0.875rem;
+  --hinttext-leading-1: 1.6;
+  --hinttext-leading-2: 1.5;
+  --hinttext-leading-3: 1.75;
+}
+
+@utility headline-* {
+  @apply font-normal;
+  font-size: --value(--headline-size-*);
+  line-height: --value(--headline-leading-*);
+  color: --modifier(--color-*);
+}
+
+@utility body-* {
+  @apply font-normal;
+  font-size: --value(--body-size-*);
+  line-height: --value(--body-leading-*);
+  color: --modifier(--color-*);
+}
+
+@utility subtitle-* {
+  @apply font-medium;
+  font-size: --value(--subtitle-size-*);
+  line-height: --value(--subtitle-leading-*);
+  color: --modifier(--color-*);
+}
+
+@utility description-* {
+  @apply font-normal;
+  font-size: --value(--description-size-*);
+  line-height: --value(--description-leading-*);
+  color: --modifier(--color-*);
+}
+
+@utility hinttext-* {
+  @apply font-normal;
+  font-size: --value(--hinttext-size-*);
+  line-height: --value(--hinttext-leading-*);
+  color: --modifier(--color-*);
 }
 
 :root {
   color: var(--color-primary-500);
-  background: linear-gradient(180deg, rgba(248, 249, 252, 0.94) 0%, rgba(238, 241, 248, 0.9) 100%);
+  /* background: linear-gradient(180deg, rgba(248, 249, 252, 0.94) 0%, rgba(238, 241, 248, 0.9) 100%); */
+  background: white;
   font-family: "Roboto", "Helvetica Neue", sans-serif;
 }
 

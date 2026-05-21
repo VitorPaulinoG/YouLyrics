@@ -28,30 +28,31 @@ type IconProps = {
 
 export function Icon({ iconConfig, className }: IconProps) {
   return (
-    <div
-      className={clsx(
-        'flex h-auto w-auto shrink-0 items-center justify-center',
-        className,
-        iconConfig.roundedBackground && 'rounded-full bg-secondary-400 p-1',
-      )}
-    >
-      {'svgUrl' in iconConfig ? (
-        <img
-          alt={iconConfig.iconName}
-          className="h-full w-full object-contain"
-          src={iconConfig.svgUrl}
-        />
-      ) : (
-        <span
-          aria-hidden="true"
-          className={clsx(
-            'flex h-full w-full items-center justify-center text-center',
-            iconConfig.isOutlined ? 'material-icons-outlined' : 'material-icons',
-          )}
-        >
-          {iconConfig.fontIcon}
-        </span>
-      )}
+    <div className={className}>
+      <div
+        className={clsx(
+          'flex items-center justify-center w-full h-full',
+          iconConfig.roundedBackground && 'rounded-full bg-secondary-400 p-1',
+        )}
+      >
+        {'svgUrl' in iconConfig ? (
+          <img
+            alt={iconConfig.iconName}
+            className="h-full w-full object-contain"
+            src={iconConfig.svgUrl}
+          />
+        ) : (
+          <span
+            aria-hidden="true"
+            className={clsx(
+              'flex h-full w-full items-center justify-center text-center',
+              iconConfig.isOutlined ? 'material-icons-outlined' : 'material-icons',
+            )}
+          >
+            {iconConfig.fontIcon}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
