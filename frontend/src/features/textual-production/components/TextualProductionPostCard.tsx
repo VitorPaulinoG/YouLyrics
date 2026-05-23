@@ -82,9 +82,13 @@ export function TextualProductionPostCard({ textualProduction }: TextualProducti
 
   return (
     <>
-      <div ref={containerRef} className="flex h-auto max-h-224 flex-col rounded-lg bg-secondary-300 pt-8">
+      <div ref={containerRef} className="flex h-auto max-h-224 flex-col rounded-lg bg-primary-06 pt-8">
         <div className="scroll-container h-full overflow-y-hidden px-9">
-          <TextualProductionMainContent contentRef={contentRef} headerRef={headerRef} textualProduction={textualProduction} />
+          <TextualProductionMainContent 
+            contentRef={contentRef} 
+            headerRef={headerRef} 
+            textualProduction={textualProduction} 
+          />
           <button
             aria-label="Open details"
             className={`overflow-effect-element ${hasOverflow ? 'is-visible' : ''}`}
@@ -92,7 +96,10 @@ export function TextualProductionPostCard({ textualProduction }: TextualProducti
             type="button"
           />
         </div>
-        <div ref={optionsRef} className="flex w-full flex-row items-center gap-2 px-4 py-2">
+        <div 
+          ref={optionsRef} 
+          className="flex w-full flex-row items-center gap-2 px-4 py-2"
+        >
           <IconButton
             iconConfig={{ fontIcon: 'thumb_up', isOutlined: true, roundedBackground: false }}
             onClick={() => console.log('[ info ] - Like added')}
@@ -108,7 +115,9 @@ export function TextualProductionPostCard({ textualProduction }: TextualProducti
             onClick={() => console.log('[ info ] - Shared')}
           />
           <Menu menuOptions={menuOptions} menuPosition="Top-Left" sharpCornerStyle="Bottom-Right">
-            <IconButton iconConfig={{ fontIcon: 'more_vert', isOutlined: true, roundedBackground: false }} />
+            <IconButton 
+              iconConfig={{ fontIcon: 'more_vert', isOutlined: true, roundedBackground: false }} 
+            />
           </Menu>
         </div>
       </div>

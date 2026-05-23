@@ -32,7 +32,7 @@ export function Icon({ iconConfig, className }: IconProps) {
       <div
         className={clsx(
           'flex items-center justify-center w-full h-full',
-          iconConfig.roundedBackground && 'rounded-full bg-secondary-400 p-1',
+          iconConfig.roundedBackground && 'rounded-full bg-secondary-03 p-1',
         )}
       >
         {'svgUrl' in iconConfig ? (

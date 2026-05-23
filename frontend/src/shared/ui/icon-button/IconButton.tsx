@@ -13,8 +13,8 @@ export function IconButton({ children, className, iconConfig, type = 'button', .
     <button
       type={type}
       className={[
-        'flex items-center justify-between gap-2 rounded-lg px-2 py-2 font-medium text-primary-500',
-        'hover:bg-secondary-400 active:bg-secondary-500',
+        'flex items-center justify-between gap-2 rounded-lg px-2 py-2 font-medium text-primary-02',
+        'hover:bg-secondary-03 active:bg-secondary-02',
         className,
       ]
         .filter(Boolean)

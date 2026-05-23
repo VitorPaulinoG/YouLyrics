@@ -68,7 +68,7 @@ export function Menu({
     <div className="relative flex h-min w-min flex-row" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
       {show && (
         <div className={clsx('menu__content absolute z-50 py-3.5', positionClassName)}>
-          <div className={clsx('flex h-auto w-64 flex-col items-center overflow-clip bg-secondary-300 shadow-2xl', cornerClassName)}>
+          <div className={clsx('flex h-auto w-64 flex-col items-center overflow-clip bg-secondary-04 shadow-2xl', cornerClassName)}>
             {menuOptions.map((option, index) => (
               <div className="w-full" key={`${option.title}-${index}`}>
                 <button

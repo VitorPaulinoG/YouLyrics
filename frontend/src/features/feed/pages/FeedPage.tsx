@@ -6,11 +6,11 @@ export function FeedPage() {
   const { data, isError, isLoading } = useTextualProductionsQuery();
 
   if (isLoading) {
-    return <div className="py-8 text-primary-500">Loading feed...</div>;
+    return <div className="py-8 text-primary-02">Loading feed...</div>;
   }
 
   if (isError) {
-    return <div className="py-8 text-primary-500">Unable to load feed right now.</div>;
+    return <div className="py-8 text-primary-02">Unable to load feed right now.</div>;
   }
 
   return (

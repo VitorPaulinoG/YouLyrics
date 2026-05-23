@@ -19,34 +19,34 @@ export function TextualProductionDetailsModal({
 }: TextualProductionDetailsModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="flex h-[45rem] max-h-[45rem] w-full max-w-[74rem] rounded-lg bg-secondary-300 lg:w-[74rem]">
+      <div className="flex h-180 max-h-180 w-296 max-w-296 rounded-lg bg-primary-06">
         <div className="flex w-full justify-center pb-4">
           <div className="flex w-full justify-center overflow-scroll px-5 py-4">
             <TextualProductionMainContent textualProduction={textualProduction} />
           </div>
         </div>
-        <hr className="h-full min-h-[1em] w-0 border-l border-primary-300" />
-        <div className="flex h-full min-w-[22rem] flex-col py-4">
+        <hr className="h-full min-h-[1em] w-0 border-l border-secondary-02" />
+        <div className="flex h-full min-w-88 flex-col py-4">
           <div className="flex flex-col gap-1">
             <div className="flex gap-1 px-2">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 h-10">
                 <Icon
-                  className="h-6 w-6"
+                  className="min-h-6 min-w-6"
                   iconConfig={{
                     svgUrl: profileRawIconUrl,
                     iconName: 'profile-raw',
                     roundedBackground: true,
                   }}
                 />
-                <div className="flex gap-1 text-[1rem]">
-                  <span className="text-primary-600">{textualProduction.author.name}</span>
-                  <span className="text-primary-300">|</span>
-                  <span className="text-primary-500">2h</span>
+                <div className="flex items-center gap-1 text-[1rem]">
+                  <span className="description-1/primary-02">{textualProduction.author.name}</span>
+                  <span className="description-2/primary-03">|</span>
+                  <span className="description-2/primary-02">2h</span>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col text-primary-500">
-              <h2 className="flex flex-col whitespace-pre-line px-2 text-sm">{textualProduction.description}</h2>
+            <div className="flex flex-col text-primary-02">
+              <h2 className="flex flex-col whitespace-pre-line px-2 description-2">{textualProduction.description}</h2>
               <div className="flex flex-col px-2 text-sm">
                 <div className="flex gap-1">
                   <span className="font-medium">Literary Genre:</span>
@@ -81,7 +81,7 @@ export function TextualProductionDetailsModal({
               placeholder="Comment about this textual production..."
             />
           </div>
-          <hr className="w-full border-t border-primary-300" />
+          <hr className="w-full border-t border-secondary-02" />
         </div>
       </div>
     </Modal>
