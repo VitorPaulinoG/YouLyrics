@@ -15,7 +15,7 @@ export function FeedPage() {
 
   return (
     <div className="flex flex-col gap-2.5">
-      <PostComposer />
+      <PostComposer/>
       {data?.content.map((textualProduction) => (
         <TextualProductionPostCard key={textualProduction.id} textualProduction={textualProduction} />
       ))}
