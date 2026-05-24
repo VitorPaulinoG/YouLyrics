@@ -6,5 +6,6 @@ export type TextualProduction = {
   author: User;
   content: string[][];
   literaryGenre: string;
+  themes: string[];
   description?: string;
 };
