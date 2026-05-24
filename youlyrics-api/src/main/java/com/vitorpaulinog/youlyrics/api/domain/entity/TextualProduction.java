@@ -40,6 +40,12 @@ public class TextualProduction {
     @Column(nullable = false)
     private String literaryGenre;
 
+    @NotNull(message = "Themes cannot be null")
+    @NotEmpty(message = "Themes cannot be empty")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "themes", columnDefinition = "jsonb", nullable = false)
+    private List<String> themes;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     @NotNull

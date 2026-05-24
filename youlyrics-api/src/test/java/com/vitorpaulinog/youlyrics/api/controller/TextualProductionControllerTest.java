@@ -99,6 +99,7 @@ public class TextualProductionControllerTest {
                     .title("Title")
                     .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
+                    .themes(List.of("Romance"))
                     .build();
 
 
@@ -119,6 +120,7 @@ public class TextualProductionControllerTest {
                     .title("Title")
                     .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
+                    .themes(List.of("Romance"))
                     .build();
 
             // act && assert
@@ -134,6 +136,26 @@ public class TextualProductionControllerTest {
             // arrange
             var textualProduction = TextualProductionCreateRequestDto.builder()
                     .title("")
+                    .content(List.of(List.of("Content")))
+                    .literaryGenre("Literary Genre")
+                    .themes(List.of("Romance"))
+                    .build();
+
+            // act && assert
+            mockMvc.perform(post("/api/v1/textual-productions")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(textualProduction))
+                        .with(authentication(authToken)))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.code", is("VALIDATION_ERROR")));
+        }
+
+        @Test
+        @DisplayName("Should not save a TextualProduction when themes is missing")
+        void shouldReturn400BadRequest_whenThemesIsMissing() throws Exception {
+            // arrange
+            var textualProduction = TextualProductionCreateRequestDto.builder()
+                    .title("Title")
                     .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
                     .build();
@@ -160,12 +182,14 @@ public class TextualProductionControllerTest {
                         .title("Title01")
                         .content(List.of(List.of("Content01")))
                         .literaryGenre("Literary Genre")
+                        .themes(List.of("Romance"))
                         .author(loggedUser)
                         .build(),
                     TextualProduction.builder()
                         .title("Title02")
                         .content(List.of(List.of("Content")))
                         .literaryGenre("Literary Genre")
+                        .themes(List.of("Humor"))
                         .author(loggedUser)
                         .build()
             ));

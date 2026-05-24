@@ -23,6 +23,7 @@ public class TextualProductionCreateRequestDto {
     private List<List<String>> content;
     @NotBlank(message = "LiteraryGenre cannot be blank")
     private String literaryGenre;
-    @Size(max = 2000)
-    private String description;
+    @NotNull(message = "Themes cannot be null")
+    @NotEmpty(message = "Themes cannot be empty")
+    private List<String> themes;
 }

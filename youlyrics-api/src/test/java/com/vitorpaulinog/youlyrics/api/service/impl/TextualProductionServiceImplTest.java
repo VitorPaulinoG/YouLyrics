@@ -78,12 +78,14 @@ public class TextualProductionServiceImplTest {
                     .title("Title")
                     .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
+                    .themes(List.of("Romance"))
                     .build();
 
             var textualProductionMock = TextualProduction.builder()
                     .title("Title")
                     .content(List.of(List.of("Content")))
                     .literaryGenre("Literary Genre")
+                    .themes(List.of("Romance"))
                     .build();
 
             when(repository.save(any())).thenReturn(textualProductionMock);
@@ -110,6 +112,7 @@ public class TextualProductionServiceImplTest {
                         .title("Title01")
                         .content(List.of(List.of("Content")))
                         .literaryGenre("Literary Genre")
+                        .themes(List.of("Romance"))
                         .author(user)
                         .build(),
                     TextualProduction.builder()
@@ -117,6 +120,7 @@ public class TextualProductionServiceImplTest {
                         .title("Title02")
                         .content(List.of(List.of("Content")))
                         .literaryGenre("Literary Genre")
+                        .themes(List.of("Humor"))
                         .author(user)
                         .build()
             ));
