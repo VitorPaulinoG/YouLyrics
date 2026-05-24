@@ -19,9 +19,9 @@ export function TextualProductionDetailsModal({
 }: TextualProductionDetailsModalProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="flex h-180 max-h-180 w-296 max-w-296 rounded-lg bg-primary-06">
-        <div className="flex w-full justify-center pb-4">
-          <div className="flex w-full justify-center overflow-scroll px-5 py-4">
+      <div className="flex h-180 max-h-180 w-auto max-w-296 rounded-lg bg-primary-06">
+        <div className="flex justify-center min-w-100 w-[50vw] pb-4 overflow-hidden py-4">
+          <div className="flex w-full justify-center overflow-scroll px-5">
             <TextualProductionMainContent textualProduction={textualProduction} />
           </div>
         </div>

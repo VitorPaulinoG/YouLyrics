@@ -13,8 +13,8 @@ export function TextualProductionMainContent({
   headerRef,
 }: TextualProductionMainContentProps) {
   return (
-    <div className="flex flex-row justify-center overflow-y-hidden pb-4">
-      <div className="flex flex-col gap-2 overflow-y-hidden">
+    <div className="flex flex-row justify-center pb-4 h-auto">
+      <div className="flex flex-col gap-2 h-auto overflow-y-visible">
         <div ref={headerRef} className="textual-production-header flex flex-col gap-2 overflow-y-visible">
           <h1 className="h-10 w-full text-left overflow-y-visible headline-3/primary-01">
             {textualProduction.title}
@@ -30,7 +30,7 @@ export function TextualProductionMainContent({
           </button>
         </div>
         <div ref={contentRef} 
-          className="textual-production-content flex flex-col gap-2.5"
+          className="textual-production-content flex flex-col gap-2.5 h-auto"
         >
           {textualProduction.content.map((stanza, stanzaIndex) => (
             <div 
